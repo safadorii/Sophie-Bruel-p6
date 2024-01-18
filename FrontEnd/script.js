@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	  workElement.appendChild(imageElement);
 	  workElement.appendChild(nomElement);
   
-	  // Ajoute la catégorie de l'œuvre comme attribut de données
+	  // Ajoute la catégorie de travaux comme attribut de données
 	  workElement.setAttribute('data-category', article.categoryId);
   
 	  sectionGallery.appendChild(workElement);
