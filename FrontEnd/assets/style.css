@@ -210,3 +210,50 @@ footer nav ul {
 	color: white;
 	background-color: #1D6154;
   }
+  .login { 
+	text-decoration: none;
+	color: black;
+  }
+  .logout{ 
+	text-decoration: none;
+	color: black;
+  }
+  .edition{
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	color: white;
+	width: 100%;
+	gap: 10px;
+	height: 45px;}
+
+	.inactive {
+		display: none;
+	 }
+	 
+	 .modifier{
+		padding-top: 10px;
+		padding-left: 10px;
+		text-decoration: none;
+	}
+	.projets {
+		display: flex;
+		justify-content: center;
+		gap: 30px;
+		padding-bottom: 3px;
+	}
+	
+	.modification{
+		display: flex;
+	}
+	.modification i {
+		position: relative;
+		top: 10px;
+	}
+	.visibilite{
+		visibility: hidden;
+	}
