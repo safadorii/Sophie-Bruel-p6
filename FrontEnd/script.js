@@ -55,17 +55,11 @@ document.getElementById('modal-modifier-ajout').addEventListener('click', functi
 	modalEdit.style.display = "block";
 });
 
-// verifier la taille de l'image 
+// Creation de l'image preview
 document.getElementById('form-image').addEventListener('change', () => {
 	let fileInput = document.getElementById('form-image');
-	const maxFileSize = 4 * 1024 * 1024; 
-	if(fileInput.files[0].size > maxFileSize) {
-		alert("Le fichier sélectionné est trop volumineux. La taille maximale est de 4 Mo.");
-		document.getElementById('form-image').value = '';
-	}
-	else {
-		if(fileInput.files.length > 0) {
-			// Creation de l'image preview
+	
+			
 			let myPreviewImage = document.createElement('img');
 			myPreviewImage.setAttribute('id','form-image-preview');
 			myPreviewImage.src = URL.createObjectURL(fileInput.files[0]);
@@ -80,8 +74,8 @@ document.getElementById('form-image').addEventListener('change', () => {
 			photoMaxSize.style.display= "none";	
 			let modalEditPhoto = document.getElementById('modal-modifier-new-photo');
 			modalEditPhoto.style.padding = "0";
-		}
-	}
+		
+	
 });
 // Lier la fonction verifierNewProject() aux image + titre + category en écoutant les événements "input"."
 document.getElementById('form-titre').addEventListener('input', verifierNewProject);
