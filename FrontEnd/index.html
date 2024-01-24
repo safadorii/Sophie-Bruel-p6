@@ -10,11 +10,51 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
-	
 	<script src="script.js" defer></script>
 </head>
 <body>
+<!--------------creation du modal : premier et deuxieme fenetre -------------------->
+	<div id="modal" class="modal-superposition" aria-hidden="true" role="dialog" aria-labelledby= "titre-modal-superposition" style="display: none;">
+	<!--------------- premiere fenetre -------------->
+		<div id="modal-works" class="modal-gallery">
+			<a id="bouton-fermer-premiere-fenetre" href="#" class="modal-fermer"><i class="fa-solid fa-xmark"></i></a>
+			<h3 id="titre-modal-superposition" class="modal-titre">Galerie photo</h3>
+			<div class="modal-contenu"></div>
+			<hr>
+			<div class="modal-ajouter">
+				<button id="modal-modifier-ajout" class="modal-ajout">Ajouter une photo</button>	
+			</div>
+		</div>
+	<!----------------deuxieme fenetre---------------->	
+		<div id="modal-modifier" class="modal-modifier-work">
+			<div class="container-icon-deuxieme-fenetre">
+				<a id="arrow-return" href="#"><i class="fa-solid fa-arrow-left"></i></a>
+				<a id="bouton-fermer-deuxieme-fenetre" href="#"><i class="fa-solid fa-xmark"></i></a>
+			</div>
+			<h3 class="modal-titre">Ajout photo</h3>
+			<form id="modal-modifier-work-form" method="post" action="#">
+				<div id= "modal-modifier-new-photo" class="modal-contenu-new-photo">
+					<i id= "photo-add-icon" class="fa-regular fa-image"></i>
+					<label id="new-image">+ Ajouter photo</label>
+					<input id="form-image" type="file" name="image" accept="image/*, .jpg, .jpeg, .png" required>
+					<p id="photo-size">jpg, png : 4mo max</p>
+				</div>
+				<div class="modal-contenu-new-category-titre">
+					<label for="form-titre">Titre</label>
+					<input type="text" name="title" id="form-titre" value="" required>
+					<label for="form-category">Catégorie</label>
+					<select class="choice-category" id="form-category" required>
+						<option value=""></option>
+					</select>
+					<hr class="border-deuxieme-fenetre">
+					<input type="submit" id="submit-new-work" value="Valider">
+				</div>
+			</form>
+		</div>
+	</div>
+	
 <header>
+	<!--creation de la barre d'edition-->
 	<div class="edition inactive">
 		<i class="fa-regular fa-pen-to-square"></i>
 		<p>Mode édition</p>
@@ -45,14 +85,16 @@
 	<section id="portfolio">
 		<div class="projets">
 		<h2>Mes Projets</h2>
-		<div class="modification visibilite">
+		<!-------creaction button modifier-------->
+		<div id="btn-modifier" class="modification visibilite">
 			<i class="fa-regular fa-pen-to-square"></i>
-			<a href="#" class="modifier">Modifier</a>
+			<a id="modifier-works" href="#" class="modifier">Modifier</a>
 		</div>
 		</div>
-		<div class="filters">
-			
+		<!----------la partie des filtres------------->
+		<div class="filters">	
 		</div>
+		<!--------la partie des travaux------------>
 		<div class="gallery">	
 		</div>
 	</section>
