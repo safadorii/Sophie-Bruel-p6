@@ -1,4 +1,17 @@
-
+document.addEventListener("DOMContentLoaded", async function () {
+  // Récupération des Travaux
+  fetch("http://localhost:5678/api/works") 
+  .then(function(response) {
+    if(response.ok) {
+      return response.json();
+    }
+  })
+  fetch("http://localhost:5678/api/categories") 
+.then(function(response) {
+	if(response.ok) {
+		return response.json();
+	}
+})
 const erreurMessage = document.querySelector(".erreur-message");
 const loginBtn = document.querySelector(".connecter");
  
@@ -23,4 +36,39 @@ loginBtn.addEventListener("submit", async (event) => {
     erreurMessage.style.visibility = "visible";
 }
 });
+});
+// mode connecté //
+
+const Login = document.querySelector(".login");
+const Logout = document.querySelector(".logout");
+const token = window.localStorage.getItem("token");
+const edition = document.querySelector(".edition");
+const filtres = document.querySelector(".filters");
+const modification = document.querySelector(".modification");
+
+function EditMode() {
+  Logout.classList.remove("inactive");
+  Login.classList.add("inactive");
+  edition.classList.remove("inactive");
+  filtres.classList.add("inactive");
+  modification.classList.remove("visibilite");
+  
+}
+
+function removeEditMode() {
+  window.localStorage.removeItem("token");
+  Logout.classList.add("inactive");
+  Login.classList.remove("inactive");
+  edition.classList.add("inactive");
+  filtres.classList.remove("inactive");
+  modification.classList.add("visibilite")
+}
+
+if (token !== null) {
+  EditMode();
+  Logout.addEventListener("click", removeEditMode);  
+
+}
+
+
 

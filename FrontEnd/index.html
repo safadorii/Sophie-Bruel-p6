@@ -11,6 +11,8 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script src="script.js" defer></script>
+	<script src="modal.js" defer></script>
+	<script src="login.js" defer></script>
 </head>
 <body>
 <!--------------creation du modal : premier et deuxieme fenetre -------------------->
@@ -36,7 +38,7 @@
 				<div id= "modal-modifier-new-photo" class="modal-contenu-new-photo">
 					<i id= "photo-add-icon" class="fa-regular fa-image"></i>
 					<label id="new-image">+ Ajouter photo</label>
-					<input id="form-image" type="file" name="image" accept="image/*, .jpg, .jpeg, .png" >
+					<input id="form-image" type="file" name="image" accept="image/*, .jpg, .jpeg, .png" required>
 					<p id="photo-size">jpg, png : 4mo max</p>
 				</div>
 				<div class="modal-contenu-new-category-titre">
