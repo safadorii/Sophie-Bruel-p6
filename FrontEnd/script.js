@@ -43,6 +43,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 	modal.style.display= null;
     modalWork=document.getElementById('modal-works');
     modalWork.style.display="block";
+	
+
 });
 
 
@@ -140,11 +142,11 @@ document.getElementById('arrow-return').addEventListener('click', function(event
 		document.querySelector("select.choice-category").appendChild(myOption);
 		});
 	})
-	
 
-	});
+   
 
 
+			});
 
 
 		
@@ -243,29 +245,134 @@ if (token !== null) {
 
 }
 
-function genererWorksModal(work) {
+
+
+function genererWorksModal(works) {
     const sectionGallery = document.querySelector(".modal-contenu");
 
-work.forEach(article => {
-const workElement = document.createElement("figure");
-const imageElement = document.createElement("img");
-imageElement.src = article.imageUrl;
-workElement.appendChild(imageElement);
+    works.forEach(article => {
+        const workElement = document.createElement("figure");
+        const imageElement = document.createElement("img");
+        imageElement.src = article.imageUrl;
+        workElement.appendChild(imageElement);
 
+        // Ajoute la catégorie de travaux comme attribut de données
+        workElement.setAttribute('data-id', article.id);
+        workElement.setAttribute('data-category', article.categoryId);
 
-// Ajoute la catégorie de travaux comme attribut de données
-workElement.setAttribute('data-category', article.categoryId);
+        // Creation icon poubelle
+        let poubelleIcon = document.createElement('i');
+        poubelleIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
+        workElement.appendChild(poubelleIcon);
 
-sectionGallery.appendChild(workElement);
-// Creation  icon poubelle
-let poubelleIcon = document.createElement('i');
-poubelleIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
-workElement.appendChild(poubelleIcon);
-});
+        poubelleIcon.addEventListener('click', async function (event) {
+            event.preventDefault();
+            if (confirm("Voulez-vous supprimer cet projet ?")) {
+                try {
+                    // Fetch pour supprimer la photo dans le modal
+                    const deleteResponse = await fetch(`http://localhost:5678/api/works/${article.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + localStorage.getItem('token')
+						}
+                    });
+
+                    switch (deleteResponse.status) {
+                        case 500:
+                        case 503:
+                            alert("Comportement inattendu!");
+                            break;
+                        case 401:
+                            alert("Suppression impossible!");
+                            break;
+                        case 200:
+                        case 204:
+                            console.log("projet supprimée.");
+                            // Suppression de la photo du modal
+                            workElement.remove();
+                            break;
+                        default:
+                            alert("Erreur inconnue!");
+                            break;
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        });
+
+        sectionGallery.appendChild(workElement);
+    });
 }
 
-    
-	
-	
 
-		
+// Ajouter un événement au bouton "valider" dans la deuxième fenêtre du modal
+document.getElementById('submit-new-work').addEventListener('click', async function (event) {
+    event.preventDefault();
+
+    // Récupérer les valeurs des champs du formulaire
+    const title = document.getElementById('form-titre').value.trim();
+    const category = document.getElementById('form-category').value.trim();
+    const image = document.getElementById('form-image').files[0];
+
+    
+
+    // Créer un objet FormData pour envoyer les données form-data 
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('image', image);
+
+    try{
+        // Utiliser fetch pour envoyer une requête POST pour ajouter un nouveau projet
+        const response = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            const newWork = await response.json();
+
+            // Générer et ajouter la nouvelle photo dans la deuxième fenêtre du modal
+            genererNewWorkModal(newWork);
+
+            // Réinitialiser les champs du formulaire
+            document.getElementById('form-titre').value = '';
+            document.getElementById('form-category').value = '';
+            document.getElementById('form-image').value = '';
+
+            alert('Le nouveau travail a été ajouté avec succès.');
+        } else {
+            alert('Erreur lors de l\'ajout du nouveau travail.');
+        }
+    } catch (error) {
+        console.error(error);
+       
+    }
+});
+
+function genererNewWorkModal(newWork) {
+    const sectionGallery = document.querySelector(".modal-contenu");
+
+    const workElement = document.createElement("figure");
+    const imageElement = document.createElement("img");
+    imageElement.src = newWork.imageUrl;
+    workElement.appendChild(imageElement);
+
+    // Ajoute la catégorie de travaux comme attribut de données
+    workElement.setAttribute('data-id', newWork.id);
+    workElement.setAttribute('data-category', newWork.categoryId);
+
+    // Creation icon poubelle
+    let poubelleIcon = document.createElement('i');
+    poubelleIcon.classList.add('fa-solid', 'fa-trash-can', 'trash');
+    workElement.appendChild(poubelleIcon);
+
+    sectionGallery.appendChild(workElement);
+}
+
+
