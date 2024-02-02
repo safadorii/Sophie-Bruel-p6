@@ -23,12 +23,12 @@ document.getElementById('modifier-works').addEventListener('click', function(eve
 		document.querySelector('#modal-works.modal-gallery .modal-contenu').innerText = '';
 		genererWorksModal(works);
 
-    buttonmodifier=document.getElementById("btn-modifier");
-    buttonmodifier.style.display="none";
-    modal=document.getElementById('modal');
-	modal.style.display= null;
-    modalWork=document.getElementById('modal-works');
-    modalWork.style.display="block";
+        buttonmodifier=document.getElementById("btn-modifier");
+        buttonmodifier.style.display="none";
+        modal=document.getElementById('modal');
+	    modal.style.display= null;
+        modalWork=document.getElementById('modal-works');
+        modalWork.style.display="block";
 	
 
 });
@@ -46,7 +46,7 @@ function genererWorksModal(works) {
   
         // Ajoute la catégorie de travaux comme attribut de données
         workElement.setAttribute('data-id', article.id);
-       
+        workElement.setAttribute('data-category', article.categoryId);
   
         // Creation icon poubelle
         let poubelleIcon = document.createElement('i');
@@ -78,9 +78,9 @@ function genererWorksModal(works) {
                             console.log("projet supprimée.");
                             // Suppression de la photo du modal
                            
-                            const mainPageImage = document.getElementById(`work-item-${article.id}`);
-                            if (mainPageImage) {
-                                mainPageImage.remove();
+                            const PageImage = document.getElementById(`work-article-${article.id}`);
+                            if (PageImage) {
+                                PageImage.remove();
                             }
                             workElement.remove();
                             break;
@@ -100,7 +100,7 @@ function genererWorksModal(works) {
 
   }
   // Ajouter un événement au bouton "valider" dans la deuxième fenêtre du modal
-document.getElementById('submit-new-work').addEventListener('click', async function (event) {
+    document.getElementById('submit-new-work').addEventListener('click', async function (event) {
     event.preventDefault();
 
     // Récupérer les valeurs des champs du formulaire
@@ -133,11 +133,9 @@ document.getElementById('submit-new-work').addEventListener('click', async funct
             genererNewWorkModal(newWork);
              genererNewWork(newWork);
             // Réinitialiser les champs du formulaire
-            document.getElementById('form-titre').value = '';
-            document.getElementById('form-category').value = '';
             if(document.getElementById('form-image-preview') != null) {
               document.getElementById('form-image-preview').remove();
-              // Return to original form design
+              // Retourner au forme original 
 			document.getElementById('modal-modifier-work-form').reset();
 			let iconNewPhoto = document.getElementById('photo-add-icon');
 			iconNewPhoto.style.display= "block";
@@ -145,12 +143,9 @@ document.getElementById('submit-new-work').addEventListener('click', async funct
 			buttonNewPhoto.style.display= "block";
 			let photoMaxSize = document.getElementById('photo-size');
 			photoMaxSize.style.display= "block";	
-			let modalEditPhoto = document.getElementById('modal-modifier-new-photo');
-			modalEditPhoto.style.padding = "30px 0 19px 0";
+            let modalEditPhoto = document.getElementById('modal-modifier-new-photo');
+			modalEditPhoto.style.padding = "0";
 			document.getElementById('submit-new-work').style.backgroundColor= "#A7A7A7";}
-                
-              
-           
             alert('Le nouveau travail a été ajouté avec succès.');
         } else {
             alert('Erreur lors de l\'ajout du nouveau travail.');
@@ -191,9 +186,6 @@ function genererNewWork(newWork) {
   // Ajoute la catégorie de travaux comme attribut de données
   workElement.setAttribute('data-id', newWork.id);
   workElement.setAttribute('data-category', newWork.categoryId);
-
- 
-
   sectionGallery.appendChild(workElement);
 }
 
@@ -241,8 +233,7 @@ document.getElementById('form-image').addEventListener('change', () => {
 			let photoMaxSize = document.getElementById('photo-size');
 			photoMaxSize.style.display= "none";	
 			let modalEditPhoto = document.getElementById('modal-modifier-new-photo');
-			modalEditPhoto.style.padding = "0";
-		
+			modalEditPhoto.style.padding = "30px 0 19px 0";
 	
 });
 // Lier la fonction verifierNewProject() aux image + titre + category en écoutant les événements "input"."

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	  const workElement = document.createElement("figure");
 	  const imageElement = document.createElement("img");
 	  imageElement.src = article.imageUrl;
-    workElement.setAttribute('id', `work-item-${article.id}`);
+    workElement.setAttribute('id', `work-article-${article.id}`);
 	  const nomElement = document.createElement("figcaption");
 	  nomElement.innerText = article.title;
   
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 	  filterContainer.appendChild(button);
 	});
   }
-  
+
   function filtrerParCategorie(categorieId) {
 	const filterButtons = document.querySelectorAll('.filter__btn');
 	const galleryFigure = document.querySelectorAll('.gallery figure');
